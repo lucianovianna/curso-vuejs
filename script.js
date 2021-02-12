@@ -11,11 +11,11 @@ Vue.component('titulo', {
 });
 
 Vue.component('clube', {
-    props: ['time'],
+    props: ['time', 'invertido'],
     template: `
-    <div>
-        <img :src="time.escudo" class="escudo" alt="">
-        {{ time.nome | ucwords }}
+    <div style="display: flex; flex-direction: row">
+        <img :src="time.escudo" class="escudo" alt="" style="order : 1">
+        <span style="order : 0 "> {{ time.nome | ucwords }} </span>
     </div>
     `
 });
@@ -26,8 +26,8 @@ new Vue({
     el: "#app",
     data: {
         ordem: {
-            colunas: ['pontos', 'gm', 'gs', 'saldo'],
-            orientacao: ['desc', 'desc', 'asc', 'desc'],
+            colunas: ['pontos', 'saldo', 'gm', 'gs'],
+            orientacao: ['desc', 'desc', 'desc', 'asc'],
         },
         times: [
             new Time('palmeiras', 'assets/palmeiras_60x60.png'),
