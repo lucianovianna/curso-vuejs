@@ -151,7 +151,8 @@ Vue.component('novo-jogo', {
 
             this.timeCasa.fimJogo(this.timeFora, golsMarcados, golsSofridos);
 
-            this.visao = 'tabela';
+            // emitindo um evento para avisar q o 'fim-jogo'
+            this.$emit('fim-jogo');
         },
     }
 });
@@ -197,6 +198,9 @@ new Vue({
 
             this.visao = 'placar';
         },
+        showTabela() {
+            this.visao = 'tabela';
+        }
     },
     filters: {
         saldo(time) {
