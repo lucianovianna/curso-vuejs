@@ -1,3 +1,11 @@
+Vue.component('titulo', {
+    template: `
+    <div class="row">
+        <h2>Campeonato Brasileiro - Série A - 2018</h2>
+    </div>
+    `,
+});
+
 new Vue({
     el: "#app",
     data: {
