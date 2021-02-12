@@ -60,15 +60,73 @@ Vue.component('clubes-libertadores', {
     },
 });
 
+Vue.component('tabela-clubes', {
+    props: ['times'],
+    data() {
+        return {
+            ordem: {
+                colunas: ['pontos', 'saldo', 'gm', 'gs'],
+                orientacao: ['desc', 'desc', 'desc', 'asc'],
+            },
+            busca: '',
+        }
+    },
+    template: `
+    <div>
+        <input type="text" class="form-control" v-model="busca">
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>Nome</th>
+                    <th v-for="(coluna, indice) in ordem.colunas">
+                        <a href="#" @click.prevent="ordenar(indice)">
+                            {{coluna | ucwords}}
+                        </a>
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr v-for="(time, indice) in timesFiltrados" :class="{'table-success' : indice<6}" :style="{'font-size': indice<6 ? '17px' : '15px'}">
+                    <td>
+                        <clube :time="time" invertido="false"></clube>
+                    </td>
+                    <td>{{ time.pontos }}</td>
+                    <td> {{ time.gm }} </td>
+                    <td> {{ time.gs }} </td>
+                    <td> {{ time.saldo }} </td>
+                </tr>
+            </tbody>
+        </table>
+        <clubes-libertadores :times="timesOrdenados"></clubes-libertadores>
+        <clubes-rebaixados :times="timesOrdenados"></clubes-rebaixados>
+    </div>
+    `,
+    computed: {
+        timesOrdenados() {
+            return _.orderBy(this.times, this.ordem.colunas, this.ordem.orientacao);
+        },
+        timesFiltrados() {
+            var self = this;
+    
+            return _.filter(this.timesOrdenados, function(time) {
+                let buscar = self.busca.toLowerCase();
+                return time.nome.toLowerCase().indexOf(buscar) >= 0;
+            });
+        },
+    },
+    methods: {
+        ordenar(indice) {
+            this.$set(this.ordem.orientacao, indice, this.ordem.orientacao[indice] == 'desc' ? 'asc' : 'desc');
+        },
+    }
+});
+
 
 
 new Vue({
     el: "#app",
     data: {
-        ordem: {
-            colunas: ['pontos', 'saldo', 'gm', 'gs'],
-            orientacao: ['desc', 'desc', 'desc', 'asc'],
-        },
+        visao: 'tabela',
         times: [
             new Time('palmeiras', 'assets/palmeiras_60x60.png'),
             new Time('internacional', 'assets/internacional_60x60.png'),
@@ -101,21 +159,6 @@ new Vue({
                 gols: 0
             }
         },
-        visao: 'tabela',
-        busca: '',
-    },
-    computed: {
-        timesFiltrados() {
-            var self = this;
-
-            return _.filter(this.timesOrdenados, function(time) {
-                let buscar = self.busca.toLowerCase();
-                return time.nome.toLowerCase().indexOf(buscar) >= 0;
-            });
-        },
-        timesOrdenados() {
-            return _.orderBy(this.times, this.ordem.colunas, this.ordem.orientacao);
-        },
     },
     methods: {
         criarNovoJogo() {
@@ -140,9 +183,6 @@ new Vue({
             timeCasa.fimJogo(timeAdversario, golsMarcados, golsSofridos);
 
             this.visao = 'tabela';
-        },
-        ordenar(indice) {
-            this.$set(this.ordem.orientacao, indice, this.ordem.orientacao[indice] == 'desc' ? 'asc' : 'desc');
         },
     },
     filters: {
