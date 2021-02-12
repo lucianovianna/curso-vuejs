@@ -202,9 +202,5 @@ new Vue({
             this.visao = 'tabela';
         }
     },
-    filters: {
-        saldo(time) {
-            return time.gm - time.gs;
-        },
-    },
+    filters: {},
 });
