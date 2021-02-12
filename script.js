@@ -121,12 +121,46 @@ Vue.component('tabela-clubes', {
     }
 });
 
+Vue.component('novo-jogo', {
+    props: ['timeCasa', 'timeFora'],
+    data() {
+        return {
+            golsCasa: 0,
+            golsFora: 0,
+        }
+    },
+    template: `
+    <form class="form-inline">
+        <input type="text" class="form-control col-md-1" v-model="golsCasa">
+
+        <clube :time="timeCasa" invertido="false" v-if="timeCasa"></clube>
+
+        <span><img src="https://freepikpsd.com/wp-content/uploads/2019/10/letra-x-png-2-1-Transparent-Images.png" width="14" height="14" alt="X"></span>
+        
+        <clube :time="timeFora" invertido="true" v-if="timeFora"></clube>
+        
+        <input type="text" class="form-control col-md-1" v-model="golsFora">
+
+        <button type="button" class="btn btn-primary" @click="fimJogo">Fim de Jogo</button>
+    </form>
+    `,
+    methods: {
+        fimJogo() {
+            var golsMarcados = parseInt(this.golsCasa);
+            var golsSofridos = parseInt(this.golsFora);
+
+            this.timeCasa.fimJogo(this.timeFora, golsMarcados, golsSofridos);
+
+            this.visao = 'tabela';
+        },
+    }
+});
+
 
 
 new Vue({
     el: "#app",
     data: {
-        visao: 'tabela',
         times: [
             new Time('palmeiras', 'assets/palmeiras_60x60.png'),
             new Time('internacional', 'assets/internacional_60x60.png'),
@@ -149,40 +183,19 @@ new Vue({
             new Time('América-MG', 'assets/america_mg_60x60.png'),
             new Time('Paraná', 'assets/parana_60x60.png'),
         ],
-        novoJogo: {
-            casa: {
-                time: null,
-                gols: 0
-            },
-            fora: {
-                time: null,
-                gols: 0
-            }
-        },
+        timeCasa: null,
+        timeFora: null,
+        visao: 'tabela'
     },
     methods: {
         criarNovoJogo() {
             let indiceCasa = Math.floor(Math.random() * 20);
             let indiceFora = Math.floor(Math.random() * 20);
 
-            this.novoJogo.casa.time = this.times[indiceCasa];
-            this.novoJogo.casa.gols = 0;
-
-            this.novoJogo.fora.time = this.times[indiceFora];
-            this.novoJogo.fora.gols = 0;
+            this.timeCasa = this.times[indiceCasa];
+            this.timeFora = this.times[indiceFora];
 
             this.visao = 'placar';
-        },
-        fimJogo() {
-            let golsMarcados = parseInt(this.novoJogo.casa.gols);
-            let golsSofridos = parseInt(this.novoJogo.fora.gols);
-
-            let timeAdversario = this.novoJogo.fora.time;
-            let timeCasa = this.novoJogo.casa.time;
-
-            timeCasa.fimJogo(timeAdversario, golsMarcados, golsSofridos);
-
-            this.visao = 'tabela';
         },
     },
     filters: {
