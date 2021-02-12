@@ -22,6 +22,44 @@ Vue.component('clube', {
     `
 });
 
+Vue.component('clubes-rebaixados', {
+    props: ['times'],
+    template: `
+    <div>
+        <h3>Times na zona de rebaixamento</h3>
+        <ul>
+            <li v-for="time in timesRebaixados">
+                <clube :time="time"></clube>
+            </li>
+        </ul>
+    </div>
+    `,
+    computed: {
+        timesRebaixados() {
+            return this.times.slice(16, 20);
+        },
+    },
+});
+
+Vue.component('clubes-libertadores', {
+    props: ['times'],
+    template: `
+    <div>
+        <h3>Times classificados para Libertadores</h3>
+        <ul>
+            <li v-for="time in timesLibertadores">
+                <clube :time="time"></clube>
+            </li>
+        </ul>
+    </div>
+    `,
+    computed: {
+        timesLibertadores() {
+            return this.times.slice(0, 6);
+        },
+    },
+});
+
 
 
 new Vue({
@@ -67,20 +105,16 @@ new Vue({
         busca: '',
     },
     computed: {
-        timesLibertadores() {
-            return this.times.slice(0, 6);
-        },
-        timesRebaixados() {
-            return this.times.slice(16, 20);
-        },
         timesFiltrados() {
-            var times = _.orderBy(this.times, this.ordem.colunas, this.ordem.orientacao);
             var self = this;
 
-            return _.filter(times, function(time) {
+            return _.filter(this.timesOrdenados, function(time) {
                 let buscar = self.busca.toLowerCase();
                 return time.nome.toLowerCase().indexOf(buscar) >= 0;
             });
+        },
+        timesOrdenados() {
+            return _.orderBy(this.times, this.ordem.colunas, this.ordem.orientacao);
         },
     },
     methods: {

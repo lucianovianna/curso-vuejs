@@ -68,18 +68,9 @@
                 </table>
 
                 <div>
-                    <h3>Times classificados para Libertadores</h3>
-                    <ul>
-                        <li v-for="time in timesLibertadores">
-                            <clube :time="time"></clube>
-                        </li>
-                    </ul>
-                    <h3>Times na zona de rebaixamento</h3>
-                    <ul>
-                        <li v-for="time in timesRebaixados">
-                            <clube :time="time"></clube>
-                        </li>
-                    </ul>
+                    <clubes-libertadores :times="timesOrdenados"></clubes-libertadores>
+
+                    <clubes-rebaixados :times="timesOrdenados"></clubes-rebaixados>
                 </div>
 
             </div>
