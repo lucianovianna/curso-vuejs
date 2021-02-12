@@ -15,25 +15,8 @@
 </head>
 
 <body>
-    <div id="app" class="container">
-        <titulo></titulo>
-
-        <div class="row">
-            <div class="col-md-12">
-                <button class="btn btn-primary" @click="criarNovoJogo">Novo Jogo</button>
-            </div>
-        </div>
-        <br>
-        <div class="row">
-            <div class="col-md-12" v-if="visao != 'tabela'">
-                <novo-jogo :time-casa="timeCasa" :time-fora="timeFora" @fim-jogo="showTabela()"></novo-jogo>
-            </div>
-            <div class="col-md-12" v-else>
-                <tabela-clubes :times="times"></tabela-clubes>
-            </div>
-        </div>
+    <div id="app">
     </div>
-
 
     <script src="https://cdn.jsdelivr.net/npm/vue@2.6.12/dist/vue.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/lodash@4.17.20/lodash.min.js"></script>
