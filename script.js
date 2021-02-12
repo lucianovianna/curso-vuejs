@@ -14,8 +14,10 @@ Vue.component('clube', {
     props: ['time', 'invertido'],
     template: `
     <div style="display: flex; flex-direction: row">
-        <img :src="time.escudo" class="escudo" alt="" style="order : 1">
-        <span style="order : 0 "> {{ time.nome | ucwords }} </span>
+        <img :src="time.escudo" class="escudo" alt="" :style="{order : (invertido == 'true') ? 2 : 1}">
+        <span :style="{order : (invertido == 'true') ? 1 : 2}"> 
+            {{ time.nome | ucwords }} 
+        </span>
     </div>
     `
 });
