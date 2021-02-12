@@ -1,3 +1,7 @@
+Vue.filter('ucwords', (valor) => {
+    return valor.charAt(0).toUpperCase() + valor.slice(1);
+}); // filtro global
+
 Vue.component('titulo', {
     template: `
     <div class="row">
@@ -5,6 +9,18 @@ Vue.component('titulo', {
     </div>
     `,
 });
+
+Vue.component('clube', {
+    props: ['time'],
+    template: `
+    <div>
+        <img :src="time.escudo" class="escudo" alt="">
+        {{ time.nome | ucwords }}
+    </div>
+    `
+});
+
+
 
 new Vue({
     el: "#app",
@@ -96,9 +112,6 @@ new Vue({
     filters: {
         saldo(time) {
             return time.gm - time.gs;
-        },
-        ucwords(valor) {
-            return valor.charAt(0).toUpperCase() + valor.slice(1);
         },
     },
 });
