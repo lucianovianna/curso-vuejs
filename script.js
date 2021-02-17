@@ -225,26 +225,26 @@ Vue.component('novo-jogo', {
     inject: ['timesColecao'],
     template: `
     <div>
-        <button class="btn btn-primary" @click="criarNovoJogo" data-bs-toggle="modal" data-bs-target="#placarModel">Novo Jogo</button>
-        <modal :time-casa="timeCasa" :time-fora="timeFora"></modal>
+        <button class="btn btn-primary" @click="criarNovoJogo">Novo Jogo</button>
+        <placar-modal :time-casa="timeCasa" :time-fora="timeFora" ref="modal"></placar-modal>
     </div>
     `,
     methods: {
         criarNovoJogo() {
+            console.log(this.$refs); // debug
             let indiceCasa = Math.floor(Math.random() * 20);
             let indiceFora = Math.floor(Math.random() * 20);
 
-            // var timeCasa = this.times[indiceCasa];
-            // var timeFora = this.times[indiceFora];
             this.timeCasa = this.times[indiceCasa];
             this.timeFora = this.times[indiceFora];
 
-            // this.$emit('novo-jogo', {timeCasa, timeFora});
+            let modal = this.$refs.modal;
+            modal.showModal();
         },
     },
 });
 
-Vue.component('modal', {
+Vue.component('placar-modal', {
     props: ['timeCasa', 'timeFora'],
     data() {
         return {
@@ -252,11 +252,9 @@ Vue.component('modal', {
             golsFora: 0,
         }
     },
-    template: `
-    <div class="modal fade" id="placarModel" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-      <div class="modal-dialog">
-        <div class="modal-content">
-          <div class="modal-header">
+    template:`
+        <modal ref="modal">
+        <div class="modal-header">
             <h5 class="modal-title" id="exampleModalLabel">
                 Novo Jogo
             </h5>
@@ -278,16 +276,18 @@ Vue.component('modal', {
             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
             <button type="button" class="btn btn-primary" @click="fimJogo">Fim de Jogo</button>
           </div>
-        </div>
-      </div>
-    </div>
+        </modal>
     `,
     methods: {
-        show() {
-            $('#placarModel').modal('show');
+        showModal() {
+            console.log(this.$el);
+            this.getModal().show();
         },
-        close() {
-            $('#placarModel').modal('hide');
+        closeModal() {
+            this.getModal().close();
+        },
+        getModal() {
+            return this.$refs.modal;
         },
         fimJogo() {
             var golsMarcados = parseInt(this.golsCasa);
@@ -295,9 +295,28 @@ Vue.component('modal', {
 
             this.timeCasa.fimJogo(this.timeFora, golsMarcados, golsSofridos);
 
-            this.close();
-            // this.$emit('fim-jogo');
+            this.closeModal();
         },
+    }
+});
+
+Vue.component('modal', {
+    template: `
+    <div class="modal fade" tabindex="-1">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <slot></slot>
+        </div>
+      </div>
+    </div>
+    `,
+    methods: {
+        show() {
+            $(this.$el).modal('show');
+        },
+        close() {
+            $(this.$el).modal('hide');
+        }
     }
 });
 
