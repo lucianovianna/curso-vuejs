@@ -52,15 +52,13 @@ Vue.component('my-app', {
 
         <div class="row">
             <div class="col-md-12">
-                <novo-jogo :times="times" @novo-jogo="showPlacar($event)"></novo-jogo>
+                <novo-jogo :times="times"></novo-jogo>
             </div>
         </div>
         <br>
         <div class="row">
-            <div class="col-md-12" v-if="visao != 'tabela'">
-                <placar :time-casa="timeCasa" :time-fora="timeFora" @fim-jogo="showTabela()"></placar>
-            </div>
-            <div class="col-md-12" v-else>
+            
+            <div class="col-md-12">
                 <tabela-clubes :times="times"></tabela-clubes>
             </div>
         </div>
@@ -219,13 +217,16 @@ Vue.component('novo-jogo', {
     // props: ['times'],
     data() {
         return {
+            timeCasa: null,
+            timeFora: null,
             times: this.timesColecao,
         }
     },
     inject: ['timesColecao'],
     template: `
     <div>
-        <button class="btn btn-primary" @click="criarNovoJogo">Novo Jogo</button>
+        <button class="btn btn-primary" @click="criarNovoJogo" data-bs-toggle="modal" data-bs-target="#placarModel">Novo Jogo</button>
+        <modal :time-casa="timeCasa" :time-fora="timeFora"></modal>
     </div>
     `,
     methods: {
@@ -233,12 +234,64 @@ Vue.component('novo-jogo', {
             let indiceCasa = Math.floor(Math.random() * 20);
             let indiceFora = Math.floor(Math.random() * 20);
 
-            var timeCasa = this.times[indiceCasa];
-            var timeFora = this.times[indiceFora];
+            // var timeCasa = this.times[indiceCasa];
+            // var timeFora = this.times[indiceFora];
+            this.timeCasa = this.times[indiceCasa];
+            this.timeFora = this.times[indiceFora];
 
-            this.$emit('novo-jogo', {timeCasa, timeFora});
+            // this.$emit('novo-jogo', {timeCasa, timeFora});
         },
     },
+});
+
+Vue.component('modal', {
+    props: ['timeCasa', 'timeFora'],
+    data() {
+        return {
+            golsCasa: 0,
+            golsFora: 0,
+        }
+    },
+    template: `
+    <div class="modal fade" id="placarModel" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">
+                Novo Jogo
+            </h5>
+          </div>
+          <div class="modal-body">
+            <form class="form-inline">
+                <input type="text" class="form-control col-md-1" v-model="golsCasa">
+        
+                <clube :time="timeCasa" invertido="false" v-if="timeCasa"></clube>
+        
+                <span><img src="https://freepikpsd.com/wp-content/uploads/2019/10/letra-x-png-2-1-Transparent-Images.png" width="14" height="14" alt="X"></span>
+                
+                <clube :time="timeFora" invertido="true" v-if="timeFora"></clube>
+                
+                <input type="text" class="form-control col-md-1" v-model="golsFora">
+            </form>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+            <button type="button" class="btn btn-primary" data-bs-dismiss="modal" @click="fimJogo">Fim de Jogo</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    `,
+    methods: {
+        fimJogo() {
+            var golsMarcados = parseInt(this.golsCasa);
+            var golsSofridos = parseInt(this.golsFora);
+
+            this.timeCasa.fimJogo(this.timeFora, golsMarcados, golsSofridos);
+
+            this.$emit('fim-jogo');
+        },
+    }
 });
 
 Vue.component('clube', {
@@ -282,7 +335,7 @@ new Vue({
             ],
         }
     },
-    template: `<my-app></my-app>`,
+    // template: `<my-app></my-app>`,
     data: {},
     methods: {},
     filters: {},
