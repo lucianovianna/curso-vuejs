@@ -254,13 +254,10 @@ Vue.component('placar-modal', {
     },
     template:`
         <modal ref="modal">
-        <div class="modal-header">
-            <h5 class="modal-title" id="exampleModalLabel">
+            <h5 slot="header" class="modal-title">
                 Novo Jogo
             </h5>
-          </div>
-          <div class="modal-body">
-            <form class="form-inline">
+            <form slot="body" class="form-inline">
                 <input type="text" class="form-control col-md-1" v-model="golsCasa">
         
                 <clube :time="timeCasa" invertido="false" v-if="timeCasa"></clube>
@@ -271,11 +268,10 @@ Vue.component('placar-modal', {
                 
                 <input type="text" class="form-control col-md-1" v-model="golsFora">
             </form>
-          </div>
-          <div class="modal-footer">
-            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-            <button type="button" class="btn btn-primary" @click="fimJogo">Fim de Jogo</button>
-          </div>
+            <div slot="footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary" @click="fimJogo">Fim de Jogo</button>
+            </div>
         </modal>
     `,
     methods: {
@@ -305,7 +301,15 @@ Vue.component('modal', {
     <div class="modal fade" tabindex="-1">
       <div class="modal-dialog">
         <div class="modal-content">
-          <slot></slot>
+          <div class="modal-header">
+            <slot name="header"></slot>
+          </div>
+          <div class="modal-body">
+            <slot name="body"></slot>
+          </div>
+          <div class="modal-footer">
+            <slot name="footer"></slot>
+          </div>
         </div>
       </div>
     </div>
