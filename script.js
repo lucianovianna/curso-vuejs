@@ -46,7 +46,7 @@ Vue.component('my-app', {
 
         <div class="row">
             <div class="col-md-12">
-                <button class="btn btn-primary" @click="criarNovoJogo">Novo Jogo</button>
+                <novo-jogo :times="times" @novo-jogo="showPlacar($event)"></novo-jogo>
             </div>
         </div>
         <br>
@@ -61,17 +61,14 @@ Vue.component('my-app', {
     </div>
     `,
     methods: {
-        criarNovoJogo() {
-            let indiceCasa = Math.floor(Math.random() * 20);
-            let indiceFora = Math.floor(Math.random() * 20);
-
-            this.timeCasa = this.times[indiceCasa];
-            this.timeFora = this.times[indiceFora];
-
-            this.visao = 'placar';
-        },
         showTabela() {
             this.visao = 'tabela';
+        },
+        showPlacar({timeCasa, timeFora}) {
+            this.timeCasa = timeCasa;
+            this.timeFora = timeFora;
+
+            this.visao = 'placar';
         },
     },
 });
@@ -205,12 +202,36 @@ Vue.component('placar', {
 
             this.timeCasa.fimJogo(this.timeFora, golsMarcados, golsSofridos);
 
-            // emitindo um evento para avisar q o 'fim-jogo'
             this.$emit('fim-jogo');
         },
     }
 });
 
+Vue.component('novo-jogo', {
+    props: ['times'],
+    // data() {
+    //     return {
+    //         timeCasa: null,
+    //         timeFora: null,
+    //     }
+    // },
+    template: `
+    <div>
+        <button class="btn btn-primary" @click="criarNovoJogo">Novo Jogo</button>
+    </div>
+    `,
+    methods: {
+        criarNovoJogo() {
+            let indiceCasa = Math.floor(Math.random() * 20);
+            let indiceFora = Math.floor(Math.random() * 20);
+
+            var timeCasa = this.times[indiceCasa];
+            var timeFora = this.times[indiceFora];
+
+            this.$emit('novo-jogo', {timeCasa, timeFora});
+        },
+    },
+});
 
 Vue.component('clube', {
     props: ['time', 'invertido'],
