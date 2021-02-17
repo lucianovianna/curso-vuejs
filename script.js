@@ -5,39 +5,45 @@ Vue.filter('ucwords', (valor) => {
 Vue.component('titulo', {
     template: `
     <div class="row">
-        <h2>Campeonato Brasileiro - Série A - 2018</h2>
+        <h2 @click="clicke">Campeonato Brasileiro - Série A - 2018</h2>
     </div>
     `,
+    methods: {
+        clicke() {
+            console.log(this.$parent.visao);
+        }
+    }
 });
 
 Vue.component('my-app', {
     data() {
         return {
-            times: [
-                new Time('palmeiras', 'assets/palmeiras_60x60.png'),
-                new Time('internacional', 'assets/internacional_60x60.png'),
-                new Time('flamengo', 'assets/flamengo_60x60.png'),
-                new Time('Atlético-MG', 'assets/atletico_mg_60x60.png'),
-                new Time('Santos', 'assets/santos_60x60.png'),
-                new Time('Botafogo', 'assets/botafogo_60x60.png'),
-                new Time('Atlético-PR', 'assets/atletico-pr_60x60.png'),
-                new Time('Corinthians', 'assets/corinthians_60x60.png'),
-                new Time('Grêmio', 'assets/gremio_60x60.png'),
-                new Time('Fluminense', 'assets/fluminense_60x60.png'),
-                new Time('Bahia', 'assets/bahia_60x60.png'),
-                new Time('Chapecoense', 'assets/chapecoense_60x60.png'),
-                new Time('São Paulo', 'assets/sao_paulo_60x60.png'),
-                new Time('Cruzeiro', 'assets/cruzeiro_60x60.png'),
-                new Time('Sport', 'assets/sport_60x60.png'),
-                new Time('Ceará', 'assets/ceara_60x60.png'),
-                new Time('Vitória', 'assets/vitoria_60x60.png'),
-                new Time('Vasco', 'assets/vasco_60x60.png'),
-                new Time('América-MG', 'assets/america_mg_60x60.png'),
-                new Time('Paraná', 'assets/parana_60x60.png'),
-            ],
+            // times: [
+            //     new Time('palmeiras', 'assets/palmeiras_60x60.png'),
+            //     new Time('internacional', 'assets/internacional_60x60.png'),
+            //     new Time('flamengo', 'assets/flamengo_60x60.png'),
+            //     new Time('Atlético-MG', 'assets/atletico_mg_60x60.png'),
+            //     new Time('Santos', 'assets/santos_60x60.png'),
+            //     new Time('Botafogo', 'assets/botafogo_60x60.png'),
+            //     new Time('Atlético-PR', 'assets/atletico-pr_60x60.png'),
+            //     new Time('Corinthians', 'assets/corinthians_60x60.png'),
+            //     new Time('Grêmio', 'assets/gremio_60x60.png'),
+            //     new Time('Fluminense', 'assets/fluminense_60x60.png'),
+            //     new Time('Bahia', 'assets/bahia_60x60.png'),
+            //     new Time('Chapecoense', 'assets/chapecoense_60x60.png'),
+            //     new Time('São Paulo', 'assets/sao_paulo_60x60.png'),
+            //     new Time('Cruzeiro', 'assets/cruzeiro_60x60.png'),
+            //     new Time('Sport', 'assets/sport_60x60.png'),
+            //     new Time('Ceará', 'assets/ceara_60x60.png'),
+            //     new Time('Vitória', 'assets/vitoria_60x60.png'),
+            //     new Time('Vasco', 'assets/vasco_60x60.png'),
+            //     new Time('América-MG', 'assets/america_mg_60x60.png'),
+            //     new Time('Paraná', 'assets/parana_60x60.png'),
+            // ],
             timeCasa: null,
             timeFora: null,
-            visao: 'tabela'
+            visao: 'tabela',
+            times: [],
         }
     },
     template: `
@@ -74,7 +80,7 @@ Vue.component('my-app', {
 });
 
 Vue.component('tabela-clubes', {
-    props: ['times'],
+    // props: ['times'],
     data() {
         return {
             ordem: {
@@ -82,8 +88,10 @@ Vue.component('tabela-clubes', {
                 orientacao: ['desc', 'desc', 'asc', 'desc'],
             },
             busca: '',
+            times: this.timesColecao,
         }
     },
+    inject: ['timesColecao'],
     template: `
     <div>
         <input type="text" class="form-control" v-model="busca">
@@ -208,13 +216,13 @@ Vue.component('placar', {
 });
 
 Vue.component('novo-jogo', {
-    props: ['times'],
-    // data() {
-    //     return {
-    //         timeCasa: null,
-    //         timeFora: null,
-    //     }
-    // },
+    // props: ['times'],
+    data() {
+        return {
+            times: this.timesColecao,
+        }
+    },
+    inject: ['timesColecao'],
     template: `
     <div>
         <button class="btn btn-primary" @click="criarNovoJogo">Novo Jogo</button>
@@ -248,6 +256,32 @@ Vue.component('clube', {
 
 new Vue({
     el: "#app",
+    provide() {
+        return {
+            timesColecao: [
+                new Time('palmeiras', 'assets/palmeiras_60x60.png'),
+                new Time('internacional', 'assets/internacional_60x60.png'),
+                new Time('flamengo', 'assets/flamengo_60x60.png'),
+                new Time('Atlético-MG', 'assets/atletico_mg_60x60.png'),
+                new Time('Santos', 'assets/santos_60x60.png'),
+                new Time('Botafogo', 'assets/botafogo_60x60.png'),
+                new Time('Atlético-PR', 'assets/atletico-pr_60x60.png'),
+                new Time('Corinthians', 'assets/corinthians_60x60.png'),
+                new Time('Grêmio', 'assets/gremio_60x60.png'),
+                new Time('Fluminense', 'assets/fluminense_60x60.png'),
+                new Time('Bahia', 'assets/bahia_60x60.png'),
+                new Time('Chapecoense', 'assets/chapecoense_60x60.png'),
+                new Time('São Paulo', 'assets/sao_paulo_60x60.png'),
+                new Time('Cruzeiro', 'assets/cruzeiro_60x60.png'),
+                new Time('Sport', 'assets/sport_60x60.png'),
+                new Time('Ceará', 'assets/ceara_60x60.png'),
+                new Time('Vitória', 'assets/vitoria_60x60.png'),
+                new Time('Vasco', 'assets/vasco_60x60.png'),
+                new Time('América-MG', 'assets/america_mg_60x60.png'),
+                new Time('Paraná', 'assets/parana_60x60.png'),
+            ],
+        }
+    },
     template: `<my-app></my-app>`,
     data: {},
     methods: {},
