@@ -15,7 +15,7 @@ import PopperJs from 'popper.js'
 
 window.jQuery = window.$ = $;
 window.Popper = PopperJs;
-// require('bootstrap');
+require('bootstrap');
 
 Vue.config.productionTip = false
 
