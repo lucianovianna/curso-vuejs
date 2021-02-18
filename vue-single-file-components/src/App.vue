@@ -1,28 +1,42 @@
 <template>
-  <div id="app">
-    <img alt="Vue logo" src="./assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
+  <div class="container">
+    <titulo></titulo>
+
+    <div class="row">
+      <div class="col-md-12">
+        <novo-jogo :times="times"></novo-jogo>
+      </div>
+    </div>
+    <br />
+    <div class="row">
+      <div class="col-md-12">
+        <tabela-clubes :times="times"></tabela-clubes>
+      </div>
+    </div>
   </div>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
 
 export default {
-  name: 'App',
-  components: {
-    HelloWorld
-  }
-}
-</script>
+  data() {
+    return {
+      timeCasa: null,
+      timeFora: null,
+      visao: "tabela",
+      times: [],
+    };
+  },
+  methods: {
+    showTabela() {
+      this.visao = "tabela";
+    },
+    showPlacar({ timeCasa, timeFora }) {
+      this.timeCasa = timeCasa;
+      this.timeFora = timeFora;
 
-<style>
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
-}
-</style>
+      this.visao = "placar";
+    },
+  },
+};
+</script>
