@@ -2,7 +2,7 @@
   <div>
     <h3>Times classificados para Libertadores</h3>
     <ul>
-      <li v-for="time in timesLibertadores" :key="time">
+      <li v-for="(time, idx) in timesLibertadores" :key="idx">
         <clube :time="time"></clube>
       </li>
     </ul>

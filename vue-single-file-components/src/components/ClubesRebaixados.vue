@@ -2,7 +2,7 @@
   <div>
     <h3>Times na zona de rebaixamento</h3>
     <ul>
-      <li v-for="time in timesRebaixados" :key="time">
+      <li v-for="(time, idx) in timesRebaixados" :key="idx">
         <clube :time="time"></clube>
       </li>
     </ul>
