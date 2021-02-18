@@ -19,8 +19,8 @@
       <input type="text" class="form-control col-md-1" v-model="golsFora" />
     </form>
     <div slot="footer">
-      <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
-        Close
+      <button type="button" class="btn btn-secondary" @click="closeModal()">
+        Fechar
       </button>
       <button type="button" class="btn btn-primary" @click="fimJogo">
         Fim de Jogo
