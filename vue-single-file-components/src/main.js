@@ -6,6 +6,9 @@ import TabelaClubes from './components/TabelaClubes.vue'
 import Time from './time'
 import Modal from './components/Modal.vue'
 import PlacarModal from './components/PlacarModal.vue'
+import Clube from './components/Clube.vue'
+import ClubesLibertadores from './components/ClubesLibertadores.vue'
+import ClubesRebaixados from './components/ClubesRebaixados.vue'
 
 
 Vue.config.productionTip = false
@@ -17,6 +20,10 @@ Vue.component('novo-jogo', NovoJogo);
 Vue.component('tabela-clubes', TabelaClubes);
 Vue.component('modal', Modal);
 Vue.component('placar-modal', PlacarModal);
+Vue.component('clube', Clube);
+Vue.component('clubes-rebaixados', ClubesRebaixados);
+Vue.component('clubes-libertadores', ClubesLibertadores);
+
 
 new Vue({
   render: h => h(App),
