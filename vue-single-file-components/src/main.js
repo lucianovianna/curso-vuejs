@@ -10,6 +10,8 @@ import PlacarModal from './components/PlacarModal.vue'
 
 Vue.config.productionTip = false
 
+Vue.filter('ucwords', (valor) => valor.charAt(0).toUpperCase() + valor.slice(1));
+
 Vue.component('titulo', Titulo);
 Vue.component('novo-jogo', NovoJogo);
 Vue.component('tabela-clubes', TabelaClubes);
