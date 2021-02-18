@@ -17,3 +17,10 @@ export default {
   props: ["time", "invertido"],
 };
 </script>
+
+<style scoped>
+.escudo {
+  width: 30px;
+  height: 30px;
+}
+</style>
