@@ -223,13 +223,6 @@ Vue.component('novo-jogo', {
 });
 
 Vue.component('placar-modal', {
-    props: ['timeCasa', 'timeFora'],
-    data() {
-        return {
-            golsCasa: 0,
-            golsFora: 0,
-        }
-    },
     template:`
         <modal ref="modal">
             <h5 slot="header" class="modal-title">
@@ -252,6 +245,13 @@ Vue.component('placar-modal', {
             </div>
         </modal>
     `,
+    props: ['timeCasa', 'timeFora'],
+    data() {
+        return {
+            golsCasa: 0,
+            golsFora: 0,
+        }
+    },
     methods: {
         showModal() {
             console.log(this.$el);

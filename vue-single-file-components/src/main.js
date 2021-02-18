@@ -4,12 +4,17 @@ import Titulo from './components/Titulo.vue'
 import NovoJogo from './components/NovoJogo.vue'
 import TabelaClubes from './components/TabelaClubes.vue'
 import Time from './time'
+import Modal from './components/Modal.vue'
+import PlacarModal from './components/PlacarModal.vue'
+
 
 Vue.config.productionTip = false
 
 Vue.component('titulo', Titulo);
 Vue.component('novo-jogo', NovoJogo);
 Vue.component('tabela-clubes', TabelaClubes);
+Vue.component('modal', Modal);
+Vue.component('placar-modal', PlacarModal);
 
 new Vue({
   render: h => h(App),
