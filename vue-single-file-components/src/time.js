@@ -1,4 +1,4 @@
-class Time {
+export default class {
     constructor(nome, escudo) {
         this.nome = nome;
         this.escudo = escudo;
