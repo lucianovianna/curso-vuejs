@@ -1,3 +1,4 @@
+import 'bootstrap/dist/css/bootstrap.min.css'
 import Vue from 'vue'
 import App from './App.vue'
 import Titulo from './components/Titulo.vue'
@@ -9,7 +10,12 @@ import PlacarModal from './components/PlacarModal.vue'
 import Clube from './components/Clube.vue'
 import ClubesLibertadores from './components/ClubesLibertadores.vue'
 import ClubesRebaixados from './components/ClubesRebaixados.vue'
+import $ from 'jquery'
+import PopperJs from 'popper.js'
 
+window.jQuery = window.$ = $;
+window.Popper = PopperJs;
+// require('bootstrap');
 
 Vue.config.productionTip = false
 
