@@ -1,4 +1,5 @@
-import 'bootstrap/dist/css/bootstrap.min.css'
+// import 'bootstrap/dist/css/bootstrap.min.css'
+import 'materialize-css/dist/css/materialize.min.css';
 import Vue from 'vue'
 import App from './App.vue'
 import Titulo from './components/Titulo.vue'
@@ -11,11 +12,15 @@ import Clube from './components/Clube.vue'
 import ClubesLibertadores from './components/ClubesLibertadores.vue'
 import ClubesRebaixados from './components/ClubesRebaixados.vue'
 import $ from 'jquery'
-import PopperJs from 'popper.js'
+// import PopperJs from 'popper.js'
+
+// window.jQuery = window.$ = $;
+// window.Popper = PopperJs;
+// require('bootstrap');
 
 window.jQuery = window.$ = $;
-window.Popper = PopperJs;
-require('bootstrap');
+window.M = require('materialize-css');
+
 
 Vue.config.productionTip = false
 
