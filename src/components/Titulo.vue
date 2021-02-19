@@ -1,11 +1,19 @@
 <template>
   <div class="row">
+    {{nome}}
     <h2 @click="clicke">Campeonato Brasileiro - Série A - 2018</h2>
   </div>
 </template>
 
 <script>
 export default {
+  props: ["teste"],
+  data() {
+    return {
+      nome: "luciano",
+      variavel: null,
+    };
+  },
   beforeCreate() {
     //criar coisa no this
     //verificar se o usuario está autenticado pra definir configuracoes
@@ -38,6 +46,7 @@ export default {
   },
   methods: {
     clicke() {
+      this.nome = "lcvn";
       console.log(this.$parent.visao);
     },
   },
