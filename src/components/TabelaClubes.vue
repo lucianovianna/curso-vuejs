@@ -34,7 +34,13 @@
 
 <script>
 import _ from 'lodash';
+import getTimes from '../get-times';
+
 export default {
+    created() {
+      getTimes.then(times => this.times = times);
+      
+    },
     data() {
         return {
             ordem: {
@@ -42,7 +48,8 @@ export default {
                 orientacao: ['desc', 'desc', 'asc', 'desc'],
             },
             busca: '',
-            times: this.timesColecao,
+            // times: this.timesColecao,
+            times: []
         }
     },
     inject: ['timesColecao'],
