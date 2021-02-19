@@ -24,6 +24,6 @@ export default new Promise((resolve) => {
             new Time('América-MG', require('./assets/america_mg_60x60.png')),
             new Time('Paraná', require('./assets/parana_60x60.png')),
         ]);
-    }, 1000);
+    }, 2500);
 });
 
