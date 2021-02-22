@@ -1,6 +1,9 @@
 <template>
   <div>
-    <button class="btn btn-primary" @click="criarNovoJogo" :disabled="loading">Novo Jogo</button>
+    <button class="btn btn-primary" @click="criarNovoJogo" :disabled="loading">
+      Novo Jogo
+    </button>
+    <button @click="$refs.modal.$destroy()">Destruir Modal</button>
     <placar-modal
       :time-casa="timeCasa"
       :time-fora="timeFora"

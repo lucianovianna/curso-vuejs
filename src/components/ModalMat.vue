@@ -17,6 +17,17 @@ export default {
   mounted() {
     $(this.$el).modal();
   },
+  beforeDestroy() {
+    //this.variavel = null;
+    this.getModal().destroy();
+    console.log("destruindo modal...");
+  },
+  destroyed() {
+    console.log("modal destruído");
+    //estrutura.destroy
+    //estrutura.eventos.destroy()
+    //console.log(Object.assign({}, this),'destroyed');
+  },
   methods: {
     show() {
       this.getModal().open();
