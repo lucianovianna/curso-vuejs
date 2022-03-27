@@ -1,6 +1,9 @@
 <template>
   <div>
-    <button class="btn btn-primary" @click="criarNovoJogo">Novo Jogo</button>
+    <button class="btn btn-primary" @click="criarNovoJogo" :disabled="loading">
+      Novo Jogo
+    </button>
+    <button @click="$refs.modal.$destroy()">Destruir Modal</button>
     <placar-modal
       :time-casa="timeCasa"
       :time-fora="timeFora"
@@ -10,12 +13,21 @@
 </template>
 
 <script>
+import getTimes from "../get-times";
+
 export default {
+  created() {
+    getTimes
+      .then((times) => (this.times = times))
+      .finally(() => (this.loading = false));
+  },
   data() {
     return {
+      loading: true,
       timeCasa: null,
       timeFora: null,
-      times: this.timesColecao,
+      // times: this.timesColecao,
+      times: [],
     };
   },
   inject: ["timesColecao"],

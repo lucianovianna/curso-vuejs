@@ -1,5 +1,8 @@
-# curso-vuejs-4
-Curso VueJS 2 parte 4
+# curso-vuejs
 
-- https://www.schoolofnet.com/plano-de-estudo-desenvolvedor-vuejs/
+Projeto feito a partir dos cursos:
+  - https://www.schoolofnet.com/curso/frontend/vuejs/iniciando-com-vuejs-2-rev3/
+  - https://www.schoolofnet.com/curso/frontend/vuejs/vue-2-iniciando-com-componentes/
+  - https://www.schoolofnet.com/curso/frontend/vuejs/vuejs-intermediario-com-componentes/
   - https://www.schoolofnet.com/curso/frontend/javascript/vuejs-iniciando-single-file-components/
+  - https://www.schoolofnet.com/curso/frontend/javascript/vuejs-iniciando-com-life-cycle/

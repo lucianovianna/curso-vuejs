@@ -1,21 +1,28 @@
-import 'bootstrap/dist/css/bootstrap.min.css'
+// import 'bootstrap/dist/css/bootstrap.min.css'
+import 'materialize-css/dist/css/materialize.min.css';
 import Vue from 'vue'
 import App from './App.vue'
 import Titulo from './components/Titulo.vue'
 import NovoJogo from './components/NovoJogo.vue'
 import TabelaClubes from './components/TabelaClubes.vue'
 import Time from './time'
-import Modal from './components/Modal.vue'
-import PlacarModal from './components/PlacarModal.vue'
+import Modal from './components/Modal.vue';
+import PlacarModal from './components/PlacarModal.vue';
+import ModalMat from './components/ModalMat.vue'
+import PlacarModalMat from './components/PlacarModalMat.vue'
 import Clube from './components/Clube.vue'
 import ClubesLibertadores from './components/ClubesLibertadores.vue'
 import ClubesRebaixados from './components/ClubesRebaixados.vue'
 import $ from 'jquery'
-import PopperJs from 'popper.js'
+// import PopperJs from 'popper.js'
+
+// window.jQuery = window.$ = $;
+// window.Popper = PopperJs;
+// require('bootstrap');
 
 window.jQuery = window.$ = $;
-window.Popper = PopperJs;
-require('bootstrap');
+window.M = require('materialize-css');
+
 
 Vue.config.productionTip = false
 
@@ -26,6 +33,8 @@ Vue.component('novo-jogo', NovoJogo);
 Vue.component('tabela-clubes', TabelaClubes);
 Vue.component('modal', Modal);
 Vue.component('placar-modal', PlacarModal);
+Vue.component('modal-mat', ModalMat);
+Vue.component('placar-modal-mat', PlacarModalMat);
 Vue.component('clube', Clube);
 Vue.component('clubes-rebaixados', ClubesRebaixados);
 Vue.component('clubes-libertadores', ClubesLibertadores);

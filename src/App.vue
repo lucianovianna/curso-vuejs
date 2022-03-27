@@ -1,6 +1,7 @@
 <template>
   <div class="container">
-    <titulo></titulo>
+    <button @click="mostrarTitulo++">Destruir Titulo</button>
+    <titulo v-if="mostrarTitulo % 2"></titulo>
 
     <div class="row">
       <div class="col-md-12">
@@ -17,10 +18,10 @@
 </template>
 
 <script>
-
 export default {
   data() {
     return {
+      mostrarTitulo: 1,
       timeCasa: null,
       timeFora: null,
       visao: "tabela",

@@ -1,5 +1,5 @@
 <template>
-  <modal-mat ref="modal">
+  <modal ref="modal">
     <h5 slot="header" class="modal-title">Novo Jogo</h5>
     <form slot="body" class="form-inline">
       <input type="text" class="form-control col-md-1" v-model="golsCasa" />
@@ -19,14 +19,14 @@
       <input type="text" class="form-control col-md-1" v-model="golsFora" />
     </form>
     <div slot="footer">
-      <button type="button" class="btn btn-secondary" @click="closeModal">
+      <button type="button" class="modal-close waves-effect waves-red btn-flat" @click="closeModal()">
         Fechar
       </button>
-      <button type="button" class="btn btn-primary" @click="fimJogo">
+      <button type="button" class="modal-close waves-effect waves-green btn-flat" @click="fimJogo">
         Fim de Jogo
       </button>
     </div>
-  </modal-mat>
+  </modal>
 </template>
 
 <script>
